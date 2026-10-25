@@ -22,8 +22,7 @@ void insert(int value) {
         i = (i - 1) / 2;
     }
 
-    cout << value << " inserted\n";
-}
+    cout << value << " inserted\n";}
 
 void deleteRoot() {
     if (n == 0) {
