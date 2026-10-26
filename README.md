@@ -848,3 +848,542 @@ Balanced: Yes
 
 ### Source Code
 [Click here to view the source code](./avl_tree.cpp)
+from pathlib import Path
+
+content = r'''# Counting Sort
+DSA Lab Program
+
+Program: Counting Sort in C++
+
+## Aim
+To implement the Counting Sort algorithm in C++ and sort an array of integers in ascending order.
+
+## Description
+Counting Sort is a non-comparison-based sorting algorithm. It counts how many times each value occurs in the input array and uses those frequencies to reconstruct the array in sorted order. This implementation supports both positive and negative integers.
+
+### Algorithm
+1. Read the number of elements and the array.
+2. Find the minimum and maximum values in the array.
+3. Create a count array for the full range of values.
+4. Count the frequency of each element.
+5. Traverse the count array and write each value into the original array according to its frequency.
+6. Display the sorted array.
+
+### Time Complexity
+- Best case: `O(n + k)`
+- Average case: `O(n + k)`
+- Worst case: `O(n + k)`
+
+Where:
+- `n` = number of elements
+- `k` = range of values (`maximum - minimum + 1`)
+
+### Space Complexity
+- `O(k)` auxiliary space
+
+### Source Code
+
+```cpp
+#include <iostream>
+#include <vector>
+#include <algorithm>
+using namespace std;
+
+void countingSort(int arr[], int n) {
+    if (n <= 1)
+        return;
+
+    int minVal = *min_element(arr, arr + n);
+    int maxVal = *max_element(arr, arr + n);
+
+    int range = maxVal - minVal + 1;
+    vector<int> count(range, 0);
+
+    // Count the frequency of each value
+    for (int i = 0; i < n; i++)
+        count[arr[i] - minVal]++;
+
+    // Rebuild the array in sorted order
+    int index = 0;
+    for (int i = 0; i < range; i++) {
+        while (count[i] > 0) {
+            arr[index++] = i + minVal;
+            count[i]--;
+        }
+    }
+}
+
+int main() {
+    int n;
+
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    if (n <= 0 || n > 100) {
+        cout << "Please enter a size between 1 and 100." << endl;
+        return 0;
+    }
+
+    int arr[100];
+
+    cout << "Enter array elements: ";
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    countingSort(arr, n);
+
+    cout << "Sorted array: ";
+    for (int i = 0; i < n; i++)
+        cout << arr[i] << " ";
+
+    cout << endl;
+    return 0;
+}
+```
+
+### Test Cases
+
+| Test Case | Input | Expected Output |
+|---|---|---|
+| 1 | `4 2 2 8 3 3 1` | `1 2 2 3 3 4 8` |
+| 2 | `5 -2 3 0 -2 1` | `-2 -2 0 1 3` |
+| 3 | `5 7 7 7 7 7` | `7 7 7 7 7` |
+| 4 | `1 9` | `9` |
+| 5 | `4 0 5 2 0` | `0 0 2 5` |
+
+### Sample Output
+
+```text
+Enter number of elements: 7
+Enter array elements: 4 2 2 8 3 3 1
+Sorted array: 1 2 2 3 3 4 8
+```
+
+### Advantages
+- Efficient when the range of input values is small.
+- Can sort integers without comparing pairs of elements.
+- Supports duplicate values and, in this implementation, negative integers.
+
+### Limitations
+- Uses extra memory proportional to the range of input values.
+- May be inefficient when the value range is much larger than the number of elements.
+
+### Conclusion
+Counting Sort sorts integers by counting their frequencies and reconstructing the array in ascending order. It is useful when the range of values is reasonably small.
+'''
+path = Path("/mnt/data/README_counting_sort.md")
+path.write_text(content, encoding="utf-8")
+print(f"Created: {path} ({path.stat().st_size} bytes)")
+from pathlib import Path
+
+content = r'''# First Duplicate in an Array
+DSA Lab Program
+
+Program: Find the First Duplicate in C++
+
+## Aim
+To implement a C++ program that finds the first duplicate element encountered while traversing an array from left to right.
+
+## Description
+The program traverses the array and stores each value in an `unordered_set`. If a value is already present in the set, it is the first duplicate encountered during the left-to-right scan. If no duplicate is found, the function returns `-1`.
+
+## Algorithm
+1. Read the number of elements and the array.
+2. Create an empty `unordered_set` to store values already visited.
+3. Traverse the array from left to right.
+4. If the current value is already in the set, return it as the first duplicate.
+5. Otherwise, insert the current value into the set.
+6. If traversal finishes without finding a duplicate, return `-1`.
+7. Print the result.
+
+## Time Complexity
+- **Best case:** `O(1)` average, if the second element is already a duplicate of the first.
+- **Average case:** `O(n)`
+- **Worst case:** `O(n)` average under typical hash-table behavior; pathological hash collisions can make it slower.
+
+## Space Complexity
+- `O(n)` for the set in the worst case.
+
+## Source Code
+
+```cpp
+#include <iostream>
+#include <unordered_set>
+using namespace std;
+
+int firstDuplicate(int arr[], int n) {
+    unordered_set<int> seen;
+
+    for (int i = 0; i < n; i++) {
+        if (seen.find(arr[i]) != seen.end())
+            return arr[i];
+
+        seen.insert(arr[i]);
+    }
+
+    return -1;
+}
+
+int main() {
+    int n;
+
+    cout << "Enter number of elements: ";
+    cin >> n;
+
+    if (n <= 0 || n > 100) {
+        cout << "Please enter a size between 1 and 100." << endl;
+        return 0;
+    }
+
+    int arr[100];
+
+    cout << "Enter array elements: ";
+    for (int i = 0; i < n; i++)
+        cin >> arr[i];
+
+    int result = firstDuplicate(arr, n);
+
+    if (result != -1)
+        cout << "First duplicate element: " << result << endl;
+    else
+        cout << "No duplicate found." << endl;
+
+    return 0;
+}
+```
+
+## Test Cases
+
+| Test Case | Input | Expected Output |
+|---|---|---|
+| 1 | `6` then `2 5 1 3 5 2` | `First duplicate element: 5` |
+| 2 | `5` then `1 2 3 4 5` | `No duplicate found.` |
+| 3 | `5` then `7 7 2 3 2` | `First duplicate element: 7` |
+| 4 | `4` then `-1 0 -1 0` | `First duplicate element: -1` |
+| 5 | `1` then `9` | `No duplicate found.` |
+
+## Sample Output
+
+```text
+Enter number of elements: 6
+Enter array elements: 2 5 1 3 5 2
+First duplicate element: 5
+```
+
+## Advantages
+- Easy to understand and implement.
+- Usually runs in linear time.
+- Works with positive, negative, and zero values.
+
+## Limitations
+- Uses additional memory to store visited values.
+- `-1` is used to indicate that no duplicate was found, so if you need to distinguish that result from a duplicate value of `-1`, use a separate status flag or another return type.
+from pathlib import Path
+
+content = r'''# Height Reached by Projectile Motion
+DSA Lab Program
+
+Program: Calculate the Maximum Height of a Projectile in C++
+
+## Aim
+To write a C++ program to calculate the maximum height reached by a projectile launched with a given initial velocity and angle.
+
+## Description
+When an object is projected at an angle to the horizontal, its vertical velocity decreases due to gravity. At the highest point, the vertical velocity becomes zero. This program calculates the maximum height while ignoring air resistance.
+
+## Formula
+\[
+H = \frac{u^2 \sin^2(\theta)}{2g}
+\]
+
+Where:
+- `H` = maximum height in metres
+- `u` = initial velocity in metres per second
+- `theta` = angle of projection in degrees
+- `g` = acceleration due to gravity (`9.8 m/s^2`)
+
+## Algorithm
+1. Start the program.
+2. Read the initial velocity and angle of projection.
+3. Convert the angle from degrees to radians.
+4. Calculate the vertical component of velocity.
+5. Calculate the maximum height using the formula.
+6. Display the maximum height.
+7. Stop the program.
+
+## Time Complexity
+- **Time Complexity:** `O(1)`
+- **Space Complexity:** `O(1)`
+
+## Source Code
+
+```cpp
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    double u, angle;
+    const double g = 9.8;
+
+    cout << "Enter initial velocity (m/s): ";
+    cin >> u;
+
+    cout << "Enter angle of projection (degrees): ";
+    cin >> angle;
+
+    if (u < 0 || angle < 0 || angle > 90) {
+        cout << "Invalid input. Use non-negative velocity "
+             << "and an angle between 0 and 90 degrees." << endl;
+        return 0;
+    }
+
+    const double pi = acos(-1.0);
+    double rad = angle * pi / 180.0;
+    double verticalVelocity = u * sin(rad);
+    double height = (verticalVelocity * verticalVelocity) / (2 * g);
+
+    cout << "Maximum height reached: "
+         << height << " meters" << endl;
+
+    return 0;
+}
+```
+
+## Test Cases
+
+| Test Case | Initial Velocity | Angle | Expected Maximum Height |
+|---|---:|---:|---:|
+| 1 | `20 m/s` | `30°` | `5.10 m` |
+| 2 | `20 m/s` | `45°` | `10.20 m` |
+| 3 | `10 m/s` | `0°` | `0.00 m` |
+| 4 | `0 m/s` | `45°` | `0.00 m` |
+
+## Sample Output
+
+```text
+Enter initial velocity (m/s): 20
+Enter angle of projection (degrees): 30
+Maximum height reached: 5.10204 meters
+```
+
+## Applications
+- Studying projectile motion in physics.
+- Estimating the height of a ball thrown at an angle.
+- Understanding the effect of launch velocity and angle on maximum height.
+
+## Limitations
+- Air resistance is ignored.
+- Gravity is assumed constant at `9.8 m/s^2`.
+- The formula assumes the projectile is launched from a reference height and calculates height above that launch point.
+
+## Conclusion
+The program calculates the maximum height reached by a projectile using its initial velocity and angle of projection. The calculation assumes ideal projectile motion without air resistance.
+'''
+path = Path("/mnt/data/README_projectile_max_height.md")
+path.write_text(content, encoding="utf-8")
+print(f"Created: {path} ({path.stat().st_size} bytes)")
+from pathlib import Path
+
+content = r'''# Horizontal Range of Projectile Motion
+DSA Lab Program
+
+Program: Calculate the Horizontal Range of a Projectile in C++
+
+## Aim
+To write a C++ program to calculate the horizontal range of a projectile launched with a given initial velocity and angle of projection.
+
+## Description
+The horizontal range is the total horizontal distance travelled by a projectile before it returns to its launch height. This program calculates the range assuming gravity is constant and air resistance is ignored.
+
+## Formula
+\[
+R = \frac{u^2 \sin(2\theta)}{g}
+\]
+
+Where:
+- `R` = horizontal range in metres
+- `u` = initial velocity in metres per second
+- `theta` = angle of projection
+- `g` = acceleration due to gravity (`9.8 m/s^2`)
+
+## Algorithm
+1. Start the program.
+2. Read the initial velocity and angle of projection.
+3. Convert the angle from degrees to radians.
+4. Calculate the horizontal range using the formula.
+5. Display the horizontal range in metres.
+6. Stop the program.
+
+## Time Complexity
+- **Time Complexity:** `O(1)`
+- **Space Complexity:** `O(1)`
+
+## Source Code
+
+```cpp
+#include <iostream>
+#include <cmath>
+using namespace std;
+
+int main() {
+    double u, angle;
+    const double g = 9.8;
+
+    cout << "Enter initial velocity (m/s): ";
+    cin >> u;
+
+    cout << "Enter angle of projection (degrees): ";
+    cin >> angle;
+
+    if (u < 0 || angle < 0 || angle > 90) {
+        cout << "Invalid input. Use non-negative velocity "
+             << "and an angle between 0 and 90 degrees." << endl;
+        return 0;
+    }
+
+    const double pi = acos(-1.0);
+    double rad = angle * pi / 180.0;
+    double range = (u * u * sin(2 * rad)) / g;
+
+    cout << "Horizontal range: " << range << " meters" << endl;
+
+    return 0;
+}
+```
+
+## Test Cases
+
+| Test Case | Initial Velocity | Angle | Expected Horizontal Range |
+|---|---:|---:|---:|
+| 1 | `20 m/s` | `30°` | `35.35 m` |
+| 2 | `20 m/s` | `45°` | `40.82 m` |
+| 3 | `10 m/s` | `0°` | `0.00 m` |
+| 4 | `10 m/s` | `90°` | `0.00 m` |
+
+## Sample Output
+
+```text
+Enter initial velocity (m/s): 20
+Enter angle of projection (degrees): 30
+Horizontal range: 35.346 meters
+```
+
+## Applications
+- Studying projectile motion in physics.
+- Estimating the horizontal distance travelled by a thrown ball.
+- Comparing how launch speed and angle affect projectile range.
+
+## Limitations
+- Air resistance is ignored.
+- Gravity is assumed constant at `9.8 m/s^2`.
+- The formula assumes the projectile lands at the same height from which it was launched.
+
+## Conclusion
+The program calculates the horizontal range of a projectile using its initial velocity and angle of projection under ideal conditions.
+'''
+path = Path("/mnt/data/README_projectile_horizontal_range.md")
+path.write_text(content, encoding="utf-8")
+print(f"Created: {path} ({path.stat().st_size} bytes)")
+from pathlib import Path
+
+content = r'''# Number of Tips in a Binary Tree
+DSA Lab Program
+
+Program: Count Leaf Nodes (Tips) in a Binary Tree Using C++
+
+## Aim
+To implement a C++ program to count the number of tips (leaf nodes) in a binary tree.
+
+## Description
+A tip, also called a leaf node, is a node in a binary tree that has no left child and no right child. The program recursively traverses the tree and counts each leaf node.
+
+## Algorithm
+1. Define a node structure with data, left pointer, and right pointer.
+2. If the current node is `nullptr`, return `0`.
+3. If the current node has no left or right child, return `1`.
+4. Recursively count the tips in the left subtree.
+5. Recursively count the tips in the right subtree.
+6. Add both counts and return the result.
+7. Print the total number of tips.
+
+## Time Complexity
+- **Time Complexity:** `O(n)`, where `n` is the number of nodes.
+- **Auxiliary Space:** `O(h)` for recursion, where `h` is the height of the tree.
+
+## Source Code
+
+```cpp
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node* left;
+    Node* right;
+
+    Node(int value) {
+        data = value;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+int countTips(Node* root) {
+    if (root == nullptr)
+        return 0;
+
+    if (root->left == nullptr && root->right == nullptr)
+        return 1;
+
+    return countTips(root->left) + countTips(root->right);
+}
+
+int main() {
+    // Create a sample binary tree
+    Node* root = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+    root->left->left = new Node(4);
+    root->left->right = new Node(5);
+
+    cout << "Number of tips (leaf nodes): "
+         << countTips(root) << endl;
+
+    return 0;
+}
+```
+
+## Test Cases
+
+| Test Case | Tree Structure | Expected Number of Tips |
+|---|---|---:|
+| 1 | `1` with children `2, 3`; node `2` has children `4, 5` | `3` |
+| 2 | A tree containing only node `10` | `1` |
+| 3 | An empty tree (`nullptr`) | `0` |
+| 4 | A chain `1 -> 2 -> 3` with each node having only a left child | `1` |
+
+## Sample Output
+
+```text
+Number of tips (leaf nodes): 3
+```
+
+## Applications
+- Finding terminal nodes in tree structures.
+- Analysing binary trees and hierarchical data.
+- Practising recursion and tree traversal.
+
+## Conclusion
+The program counts the leaf nodes (tips) in a binary tree using recursion. Each node is visited once, giving `O(n)` time complexity.
+'''
+path = Path("/mnt/data/README_number_of_tips_binary_tree.md")
+path.write_text(content, encoding="utf-8")
+print(f"Created: {path} ({path.stat().st_size} bytes)")
+
+## Conclusion
+The program finds the first duplicate encountered during a left-to-right traversal using an `unordered_set`, with average `O(n)` time complexity.
+'''
+path = Path("/mnt/data/README_first_duplicate.md")
+path.write_text(content, encoding="utf-8")
+print(f"Created: {path} ({path.stat().st_size} bytes)")
