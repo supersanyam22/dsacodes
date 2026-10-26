@@ -556,8 +556,6 @@ Heap sort uses a binary heap to sort elements in ascending order.
 | Average | O(n log n) |
 | Worst | O(n log n) |
 
-### Space Complexity
-O(1) auxiliary space for an in-place implementation.
 
 ### Test Cases
 
@@ -574,3 +572,279 @@ Sorted array: 1 2 3 5 8
 
 ### Source Code
 [Click here to view the source code](./heap_sort.cpp)
+## Program 15: Tower of Hanoi in C++
+
+### Aim
+To solve the Tower of Hanoi problem using recursion.
+
+### Description
+Tower of Hanoi moves disks from a source rod to a destination rod using an auxiliary rod.
+
+### Algorithm
+1. Move `n-1` disks to the auxiliary rod.
+2. Move the largest disk to the destination rod.
+3. Move `n-1` disks to the destination rod.
+
+### Time Complexity
+
+| Case | Time Complexity |
+|---|---|
+| All cases | O(2ⁿ) |
+
+### Space Complexity
+O(n), due to recursion.
+
+### Test Case
+
+| Input | Expected Output |
+|---|---|
+| Number of disks = 3 | 7 moves |
+
+### Output
+```text
+Move disk 1 from A to C
+Move disk 2 from A to B
+Move disk 1 from C to B
+Move disk 3 from A to C
+Move disk 1 from B to A
+Move disk 2 from B to C
+Move disk 1 from A to C
+```
+
+### Source Code
+[Click here to view the source code](./tower_of_hanoi.cpp)
+## Program 16: Valid Parentheses in C++
+
+### Aim
+To check whether a string contains valid parentheses.
+
+### Description
+A stack is used to check whether brackets are correctly matched and balanced.
+
+### Algorithm
+1. Push opening brackets onto the stack.
+2. Match each closing bracket with the stack's top.
+3. Return `true` if all brackets match; otherwise, return `false`.
+
+### Time Complexity
+
+| Operation | Time Complexity |
+|---|---|
+| Validation | O(n) |
+
+### Space Complexity
+O(n), where n is the string length.
+
+### Test Cases
+
+| Input | Expected Output |
+|---|---|
+| `()` | `true` |
+| `()[]{}` | `true` |
+| `(]` | `false` |
+| `((` | `false` |
+| `{[()]}` | `true` |
+
+### Output
+```text
+() -> true
+()[]{} -> true
+(] -> false
+(( -> false
+{[()]} -> true
+```
+
+### Source Code
+[Click here to view the source code](./valid_parenthesis.cpp)
+
+## Program 17: Binary Tree Insertion and Traversals in C++
+
+### Aim
+To insert nodes into a binary tree and perform inorder, preorder, and postorder traversals.
+
+### Description
+A binary tree consists of nodes with at most two children. Traversals visit nodes in different orders.
+
+### Algorithm
+1. Insert nodes into the binary tree.
+2. **Inorder:** Left → Root → Right.
+3. **Preorder:** Root → Left → Right.
+4. **Postorder:** Left → Right → Root.
+
+### Time Complexity
+
+| Operation | Time Complexity |
+|---|---|
+| Insertion | Depends on the insertion method |
+| Inorder Traversal | O(n) |
+| Preorder Traversal | O(n) |
+| Postorder Traversal | O(n) |
+
+### Space Complexity
+O(n), including the tree and recursion stack in the worst case.
+
+### Test Case
+
+**Input:** Insert nodes in this order: 1, 2, 3, 4, 5, 6, 7.
+
+### Output
+
+```text
+Inorder Traversal: 4 2 5 1 6 3 7
+Preorder Traversal: 1 2 4 5 3 6 7
+Postorder Traversal: 4 5 2 6 7 3 1
+```
+
+### Source Code
+[Click here to view the source code](./binary_tree.cpp)
+
+## Program 18: Binary Search Tree (BST) Operations in C++
+
+### Aim
+To perform insertion, searching, inorder traversal, and deletion in a BST.
+
+### Description
+A BST stores smaller values on the left and larger values on the right. Deletion handles three cases: leaf node, one child, and two children.
+
+### Algorithm
+1. Insert nodes according to BST properties.
+2. Search for a key by comparing values.
+3. Delete a leaf node directly.
+4. For one child, replace the node with its child.
+5. For two children, replace the node with its inorder successor.
+6. Use inorder traversal to display sorted values.
+
+### Time Complexity
+
+| Operation | Average Case | Worst Case |
+|---|---|---|
+| Insertion | O(log n) | O(n) |
+| Searching | O(log n) | O(n) |
+| Deletion | O(log n) | O(n) |
+| Inorder Traversal | O(n) | O(n) |
+
+### Space Complexity
+O(n) for the tree and O(h) auxiliary recursion space, where h is the tree height.
+
+### Test Cases
+
+| Operation | Input | Expected Result |
+|---|---|---|
+| Insertion | 50, 30, 70, 20, 40, 60, 80 | BST created |
+| Searching | Search 40 | 40 found in BST |
+| Deletion Case 1 | Delete 20 | Leaf node deleted |
+| Deletion Case 2 | Delete 30 | Node with one child deleted |
+| Deletion Case 3 | Delete 50 | Node with two children deleted |
+
+### Output
+
+**1. BST after insertion:**
+```text
+BST Inorder: 20 30 40 50 60 70 80
+```
+
+**2. Searching for 40:**
+```text
+40 found in BST
+```
+
+**3. Deletion Case 1 — Leaf Node (20):**
+```text
+Before deletion: 20 30 40 50 60 70 80
+After deletion:  30 40 50 60 70 80
+```
+
+**4. Deletion Case 2 — Node with One Child (30):**
+```text
+Before deletion: 30 40 50 60 70 80
+After deletion:  40 50 60 70 80
+```
+
+**5. Deletion Case 3 — Node with Two Children (50):**
+```text
+Before deletion: 40 50 60 70 80
+After deletion:  40 60 70 80
+```
+
+**6. Final Output of the Given Program:**
+```text
+BST Inorder: 20 30 40 50 60 70 80
+40 found in BST
+BST after deletion: 40 60 70 80
+```
+
+### Source Code
+[Click here to view the source code](./bst.cpp)
+
+## Program 19: AVL Tree Operations in C++
+
+### Aim
+To implement an AVL tree using insertion, rotations, and balance checking.
+
+### Description
+An AVL tree is a self-balancing BST. It uses LL, RR, LR, and RL rotations to maintain balance.
+
+### Algorithm
+1. Insert nodes using BST rules.
+2. Update node heights and calculate balance factors.
+3. Apply rotations if the tree becomes unbalanced.
+4. Perform inorder traversal and check balance.
+
+### Time Complexity
+
+| Operation | Time Complexity |
+|---|---|
+| Insertion | O(log n) |
+| Inorder Traversal | O(n) |
+| Balance Checking | O(n) |
+
+### Space Complexity
+O(n) for the tree and O(log n) recursion space for a balanced AVL tree.
+
+### Test Cases
+
+| Case | Insertion Order | Rotation |
+|---|---|---|
+| LL | 30, 20, 10 | Right rotation |
+| RR | 10, 20, 30 | Left rotation |
+| LR | 30, 10, 20 | Left, then right rotation |
+| RL | 10, 30, 20 | Right, then left rotation |
+
+### Output
+
+**1. LL Rotation**
+```text
+Insertion: 30, 20, 10
+Inorder: 10 20 30
+Balanced: Yes
+```
+
+**2. RR Rotation**
+```text
+Insertion: 10, 20, 30
+Inorder: 10 20 30
+Balanced: Yes
+```
+
+**3. LR Rotation**
+```text
+Insertion: 30, 10, 20
+Inorder: 10 20 30
+Balanced: Yes
+```
+
+**4. RL Rotation**
+```text
+Insertion: 10, 30, 20
+Inorder: 10 20 30
+Balanced: Yes
+```
+
+**5. Output of the Given Program**
+```text
+Inorder: 10 20 25 30 40 50
+Balanced: Yes
+```
+
+### Source Code
+[Click here to view the source code](./avl_tree.cpp)
