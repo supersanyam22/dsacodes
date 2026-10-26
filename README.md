@@ -1387,3 +1387,92 @@ The program finds the first duplicate encountered during a left-to-right travers
 path = Path("/mnt/data/README_first_duplicate.md")
 path.write_text(content, encoding="utf-8")
 print(f"Created: {path} ({path.stat().st_size} bytes)")
+from pathlib import Path
+
+content = r'''# Count Trailing Zeros in a Number
+DSA Lab Program
+
+Program: Count the Number of Trailing Zeros in C++
+
+## Aim
+To write a C++ program to count the number of zeros at the end of an integer.
+
+## Description
+Trailing zeros are zeros that appear at the right end of a number. For example, `12000` has three trailing zeros. The program repeatedly checks whether the number is divisible by 10. If it is, the count is increased and the last digit is removed.
+
+## Algorithm
+1. Read an integer.
+2. Set the counter to `0`.
+3. While the number is not zero and is divisible by `10`:
+   - Increase the counter by `1`.
+   - Divide the number by `10`.
+4. Print the counter.
+5. Stop the program.
+
+## Time Complexity
+- **Time Complexity:** `O(d)`, where `d` is the number of trailing zeros.
+- **Space Complexity:** `O(1)`.
+
+## Source Code
+
+```cpp
+#include <iostream>
+using namespace std;
+
+int countTrailingZeros(long long n) {
+    int count = 0;
+
+    while (n != 0 && n % 10 == 0) {
+        count++;
+        n /= 10;
+    }
+
+    return count;
+}
+
+int main() {
+    long long n;
+
+    cout << "Enter an integer: ";
+    cin >> n;
+
+    cout << "Number of trailing zeros: "
+         << countTrailingZeros(n) << endl;
+
+    return 0;
+}
+```
+
+## Test Cases
+
+| Test Case | Input | Expected Output |
+|---|---:|---:|
+| 1 | `12000` | `3` |
+| 2 | `450` | `1` |
+| 3 | `12345` | `0` |
+| 4 | `100000` | `5` |
+| 5 | `0` | `0` |
+
+## Sample Output
+
+```text
+Enter an integer: 12000
+Number of trailing zeros: 3
+```
+
+## Applications
+- Analysing decimal numbers.
+- Practising loops and arithmetic operators.
+- Identifying trailing zeros in integer values.
+
+## Limitations
+- This program counts trailing zeros in the decimal representation of an integer; it does not calculate the number of trailing zeros in a factorial.
+- For input `0`, the program returns `0` by convention.
+
+## Conclusion
+The program counts the zeros at the right end of an integer by repeatedly removing factors of 10. It uses constant extra space.
+'''
+path = Path("/mnt/data/README_trailing_zeros.md")
+path.write_text(content, encoding="utf-8")
+print(f"Created: {path} ({path.stat().st_size} bytes)")
+
